@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 470440}
   - 33: {fileID: 3332752}
   - 23: {fileID: 2323336}
+  - 114: {fileID: 114000011580735910}
   m_Layer: 0
   m_Name: Tree Type1 04
   m_TagString: Untagged
@@ -89,3 +90,14 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 185286}
   m_IsPrefabParent: 1
+--- !u!114 &114000011580735910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 185286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4358c32533816a48b8d67e64e6e43e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

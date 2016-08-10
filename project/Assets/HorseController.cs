@@ -3,7 +3,9 @@ using System.Collections;
 
 public class HorseController : MonoBehaviour {
 
-	//public GameObject horseRoot;
+	[Header("Sound")]
+	public AudioClip neigh;
+	[Space(10)]
 
 	/*
 	 * Default mass
@@ -39,6 +41,8 @@ public class HorseController : MonoBehaviour {
 	public GameObject horseLeftArm;
 	public GameObject horseLeftElbow;
 
+	private SoftJointLimit LowTwistLimit;
+
 	// Use this for initialization
 	void Start () {
 		horseHips = transform.Find("Root/Hips").gameObject;
@@ -55,7 +59,7 @@ public class HorseController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		// Apply a constant upward force to keep horse upright
 		getHorsePartRigidBody(horseHips).AddForce(0, hipsUpwardConstant, 0, ForceMode.Force);
@@ -66,13 +70,28 @@ public class HorseController : MonoBehaviour {
 		if (Input.GetKeyDown (actionKey)) {
 			print ("action key was pressed");
 
+			GetComponent<AudioSource>().clip = neigh;
+			GetComponent<AudioSource>().Play ();
+
 			// Apply upward force to the hips/spine
 			applyForwardForceImpulse (horseHips, hipsForwardAction);
 			applyUpwardForceImpulse (horseHips, hipsUpwardAction);
 			applyForwardForceImpulse (horseSpine, spineForwardAction);
 			applyUpwardForceImpulse (horseSpine, spineUpwardAction);
 
-			//horseRightKnee.GetComponent<CharacterJoint> ().swingLimitSpring.spring = 0;
+			applyTorque (horseHead, 100F);
+			applyTorque (horseHips, 100F);
+			applyTorque ( horseSpine, 100F);
+			applyTorque (horseRightLeg, 100F);
+			applyTorque (horseRightKnee, 100F);
+			applyTorque (horseLeftLeg, 100F);
+			applyTorque (horseLeftKnee, 100F);
+			applyTorque ( horseRightArm, 100F);
+			applyTorque (horseRightElbow, 100F);
+			applyTorque (horseLeftArm, 100F);
+			applyTorque ( horseLeftElbow, 100F);
+
+			//horseLeftElbow.GetComponent<CharacterJoint> ().lowTwistLimit.limit = LowTwistLimit;
 			//horseLeftKnee.GetComponent<CharacterJoint> ().lowTwistLimit.limit = 0;
 		} else {
 			//horseRightKnee.GetComponent<CharacterJoint> ().lowTwistLimit.limit = -80;
@@ -85,12 +104,16 @@ public class HorseController : MonoBehaviour {
 		return aHorsePart.GetComponent<Rigidbody>();
 	}
 
-	void applyForwardForceImpulse(GameObject aHorsePart, float aThrustValue){
-		getHorsePartRigidBody(aHorsePart).AddForce(0, 0, aThrustValue, ForceMode.Impulse);
+	void applyTorque(GameObject aHorsePart, float aValue){
+		getHorsePartRigidBody(aHorsePart).AddRelativeTorque(aValue, aValue, aValue, ForceMode.VelocityChange);
 	}
 
-	void applyUpwardForceImpulse(GameObject aHorsePart, float aThrustValue){
-		getHorsePartRigidBody(aHorsePart).AddForce(0, aThrustValue, 0, ForceMode.Impulse);
+	void applyForwardForceImpulse(GameObject aHorsePart, float aValue){
+		getHorsePartRigidBody(aHorsePart).AddForce(0, 0, aValue, ForceMode.Impulse);
+	}
+
+	void applyUpwardForceImpulse(GameObject aHorsePart, float aValue){
+		getHorsePartRigidBody(aHorsePart).AddForce(0, aValue, 0, ForceMode.Impulse);
 	}
 		
 }

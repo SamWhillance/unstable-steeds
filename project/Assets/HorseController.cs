@@ -63,14 +63,20 @@ public class HorseController : MonoBehaviour {
 		getHorsePartRigidBody(horseSpine).AddForce(0, 0, spineForwardConstant, ForceMode.Force);
 
 		// If the action key is down
-		if (Input.GetKeyDown(actionKey)) {
-			print("action key was pressed");
+		if (Input.GetKeyDown (actionKey)) {
+			print ("action key was pressed");
 
 			// Apply upward force to the hips/spine
-			applyForwardForceImpulse(horseHips, hipsForwardAction);
-			applyUpwardForceImpulse(horseHips, hipsUpwardAction);
-			applyForwardForceImpulse(horseSpine, spineForwardAction);
-			applyUpwardForceImpulse(horseSpine, spineUpwardAction);
+			applyForwardForceImpulse (horseHips, hipsForwardAction);
+			applyUpwardForceImpulse (horseHips, hipsUpwardAction);
+			applyForwardForceImpulse (horseSpine, spineForwardAction);
+			applyUpwardForceImpulse (horseSpine, spineUpwardAction);
+
+			//horseRightKnee.GetComponent<CharacterJoint> ().swingLimitSpring.spring = 0;
+			//horseLeftKnee.GetComponent<CharacterJoint> ().lowTwistLimit.limit = 0;
+		} else {
+			//horseRightKnee.GetComponent<CharacterJoint> ().lowTwistLimit.limit = -80;
+			//horseLeftKnee.GetComponent<CharacterJoint> ().lowTwistLimit.limit = -80;
 		}
 	}
 

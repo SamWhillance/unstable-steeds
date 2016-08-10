@@ -20,6 +20,8 @@ public class GenerateFences : MonoBehaviour {
 
 		Transform newFence;
 
+		print ("Building fences");
+
 		do {
 
 			// Create top fence
